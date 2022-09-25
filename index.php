@@ -77,27 +77,27 @@ if (isset($_POST['signupformbtnname'])) {
   //     echo "<script>window.location.href='index.php'</script>";
   //   } else {
 
-      $sql = "INSERT INTO `users` (`username`, `email`, `password`) VALUES (:n, :e,:p)";
+  $sql = "INSERT INTO `users` (`username`, `email`, `password`) VALUES (:n, :e,:p)";
 
-      $query = $conn->prepare($sql);
+  $query = $conn->prepare($sql);
 
-      $query->bindParam(':n', $username, PDO::PARAM_STR);
-      $query->bindParam(':e', $email, PDO::PARAM_STR);
-      $query->bindParam(':p', $password, PDO::PARAM_STR);
-
-
-
-      $query->execute();
-
-      function_alert($result['username']);
-      echo "<script>window.location.href='userpage.php'</script>";
-    }
-  // }
-  //must write if the registered username is already exist or not
+  $query->bindParam(':n', $username, PDO::PARAM_STR);
+  $query->bindParam(':e', $email, PDO::PARAM_STR);
+  $query->bindParam(':p', $password, PDO::PARAM_STR);
 
 
 
-  
+  $query->execute();
+
+  function_alert($result['username']);
+  echo "<script>window.location.href='userpage.php'</script>";
+}
+// }
+//must write if the registered username is already exist or not
+
+
+
+
 // }
 
 
