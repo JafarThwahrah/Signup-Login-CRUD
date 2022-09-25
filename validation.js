@@ -32,10 +32,9 @@ function checkPassword(username, email, password, cpassword) {
   ) {
     if (password == cpassword) {
       alert(`JS FILE WELCOME ${username}`);
-    //   window.location.href='index.php'   
+      //   window.location.href='index.php'
     } else {
       alert("Please confirm your password again");
-      
     }
   } else {
     alert(
