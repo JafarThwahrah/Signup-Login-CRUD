@@ -72,7 +72,7 @@ if (isset($_POST['loginform'])) {
 function function_alert($message)
 {
 
-  echo "<script>alert('$message');</script>";
+  echo "<script>alert('Weclome $message');</script>";
 }
 
 
@@ -215,7 +215,7 @@ if (isset($_POST['signupformbtnname'])) {
 
 
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" pattern="[a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]" name="usrname" id="username" placeholder="username">
+              <input type="text" class="form-control" pattern="[a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+" name="usrname" id="username" placeholder="username">
               <label for="username">Username</label>
             </div>
 
