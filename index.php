@@ -15,7 +15,7 @@ if (isset($_POST['loginform'])) {
   $query->execute();
 
 
-  function lastLogin($email, $conn)
+  function lastLogin($email)
   {
 
     $servername = "localhost";
@@ -31,12 +31,14 @@ if (isset($_POST['loginform'])) {
     } catch (PDOException $e) {
       echo "Connection failed: " . $e->getMessage();
     }
-    $time = date('Y-m-d h:i:s');
+
 
     $stmt = $conn->prepare("UPDATE users SET last_Login_Date = :lastlogin  WHERE email = :em");
 
+    date_default_timezone_set('Asia/Amman');
+    $date = date('Y-m-d H:i:s');
 
-    $stmt->bindParam(':lastlogin', $time);
+    $stmt->bindParam(':lastlogin', $date);
     $stmt->bindParam(':em', $email);
 
     $stmt->execute();
@@ -51,15 +53,15 @@ if (isset($_POST['loginform'])) {
   {
     foreach ($results as $result) {
       require_once 'conn.php';
-      echo ($result['password']);
-      echo $password;
-      lastLogin($email, $conn);
+      // echo ($result['password']);
+      // echo $password;
       if ($result['password'] == $password && $result['email'] == $email && $result['email'] == 'jaffardawahreh2@gmail.com') {
+        lastLogin($email);
 
         return ("<script>alert('Welcome Jafar Thwahrah');</script>" . "<script>window.location.href='adminPage.php'</script>");
       } else if ($result['password'] == $password && $result['email'] == $email) {
         require_once 'conn.php';
-        lastLogin($email, $conn);
+        lastLogin($email);
         function_alert($result['username']);
         return ("<script>window.location.href='userpage.php'</script>");
       }
@@ -115,12 +117,13 @@ if (isset($_POST['signupformbtnname'])) {
     } catch (PDOException $e) {
       echo "Connection failed: " . $e->getMessage();
     }
-    $time = date('Y-m-d h:i:s');
+    date_default_timezone_set('Asia/Amman');
+    $date = date('Y-m-d H:i:s');
 
     $stmt = $conn->prepare("UPDATE users SET last_Login_Date = :lastlogin  WHERE email = :em");
 
 
-    $stmt->bindParam(':lastlogin', $time);
+    $stmt->bindParam(':lastlogin', $date);
     $stmt->bindParam(':em', $email);
 
     $stmt->execute();
