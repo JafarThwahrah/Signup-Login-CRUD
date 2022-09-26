@@ -12,3 +12,6 @@ $query->bindParam(':del', $Remove, PDO::PARAM_STR);
 $query->execute();
 
 header('location:adminPage.php');
+
+
+?>

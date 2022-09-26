@@ -1,6 +1,6 @@
-let signupForm = document.getElementById("signUpForm");
+let signupForm = document.getElementById("Signupformbtn");
 
-signupForm.addEventListener("submit", function (evt) {
+signupForm.addEventListener("click", function (evt) {
   evt.preventDefault();
 
   let username = document.forms["regForm"]["usrname"].value;
@@ -42,45 +42,3 @@ function checkPassword(username, email, password, cpassword) {
     );
   }
 }
-
-// regForm.addEventListener("submit", function (e) {
-//     if (fName.value && lName.value && signEmail.value && signPassword.value) {
-//       let verified = false;
-//       e.preventDefault();
-//       // get data into array
-//       if (arr != null) {
-//         arr.forEach((user) => {
-//           if (signEmail.value != user.email) {
-//             verified = true;
-//           }
-//         });
-
-//         if (verified) {
-//           signUpAction();
-//         } else {
-//           alert("This email is already registered!");
-//         }
-//       } else {
-//         signUpAction();
-//       }
-//     } else {
-//       e.preventDefault();
-//       return false;
-//     }
-//   });
-
-//   function signUpAction() {
-//     usersArr.push(
-//       new User(fName.value, lName.value, signEmail.value, signPassword.value)
-//     );
-//     console.log(usersArr);
-//     // save array into local
-//     localStorage.setItem("users", JSON.stringify(usersArr));
-//     //set current user
-//     localStorage.setItem(
-//       "currentloggedin",
-//       JSON.stringify(usersArr[usersArr.length - 1])
-//     );
-//     window.location = "./taskpage.html";
-//     alert(`Welcome ${fName.value} ${lName.value}`);
-//   }

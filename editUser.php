@@ -30,11 +30,6 @@ foreach ($results as $result) {
     <form class="container-lg" name="updateform" method="POST">
 
         <div class="form-floating m-3">
-            <input type="text" name="ID" value="<?php echo ($result->ID) ?>" class="form-control h-25" id="dd" placeholder="ID" required>
-            <label for="dd">ID</label>
-        </div>
-
-        <div class="form-floating m-3">
             <input type="text" value="<?php echo ($result->username) ?>" name="username" class="form-control h-25" id="Na" placeholder="Name" required>
             <label for="Na">username</label>
         </div>
@@ -70,15 +65,13 @@ if (isset($_POST['update'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $ID = $_POST['ID'];
 
 
 
 
-    $sql = "UPDATE `users` SET `ID` =:idd, `username` =:n,`email` =:em, `password` =:pas WHERE `users`.`ID` =:iddd";
+    $sql = "UPDATE `users` SET `username` =:n,`email` =:em, `password` =:pas WHERE `users`.`ID` =:iddd";
     $query = $conn->prepare($sql);
 
-    $query->bindParam(':idd', $ID, PDO::PARAM_STR);
     $query->bindParam(':n', $username, PDO::PARAM_STR);
     $query->bindParam(':em', $email, PDO::PARAM_STR);
     $query->bindParam(':pas', $password, PDO::PARAM_STR);

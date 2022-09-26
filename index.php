@@ -2,12 +2,9 @@
 require_once 'conn.php';
 if (isset($_POST['loginform'])) {
   require_once 'conn.php';
-  echo 'hello world';
 
-  // Posted Values
   $email = $_POST['loginemail'];
   $password = $_POST['loginpassword'];
-  // SELECT CustomerName, City FROM Customers;
 
   $sql = "SELECT * FROM `users` WHERE email = :em";
 
@@ -15,29 +12,63 @@ if (isset($_POST['loginform'])) {
 
   $query->bindParam(':em', $email, PDO::PARAM_STR);
 
-
   $query->execute();
 
-  $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
-  foreach ($results as $result) {
-    echo ($result['password']);
-    echo $password;
+  function lastLogin($email, $conn)
+  {
 
-    if ($result['password'] == $password) {
-      if ($result['email'] == 'jaffardawahreh2@gmail.com') {
-        echo "<script>alert('Welcome Jafar Thwahrah');</script>";
-        echo "<script>window.location.href='adminPage.php'</script>";
-      }
-      function_alert($result['username']);
-      echo "<script>window.location.href='userpage.php'</script>";
-    } else {
-      echo "<script>alert('Wrong username or password');</script>";
-      echo "<script>window.location.href='index.php'</script>";
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "signup_login";
+
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      // set the PDO error mode to exception
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      // echo "Connected successfully" . "<br>";
+    } catch (PDOException $e) {
+      echo "Connection failed: " . $e->getMessage();
     }
-  }
-}
+    $time = date('Y-m-d h:i:s');
 
+    $stmt = $conn->prepare("UPDATE users SET last_Login_Date = :lastlogin  WHERE email = :em");
+
+
+    $stmt->bindParam(':lastlogin', $time);
+    $stmt->bindParam(':em', $email);
+
+    $stmt->execute();
+  }
+
+
+
+  // update table tblName set mytime = current_date() where stuff==stuf
+
+
+  $results = $query->fetchAll(PDO::FETCH_ASSOC);
+  function checkusers($email, $password, $results)
+  {
+    foreach ($results as $result) {
+      require_once 'conn.php';
+      echo ($result['password']);
+      echo $password;
+      lastLogin($email, $conn);
+      if ($result['password'] == $password && $result['email'] == $email && $result['email'] == 'jaffardawahreh2@gmail.com') {
+
+        return ("<script>alert('Welcome Jafar Thwahrah');</script>" . "<script>window.location.href='adminPage.php'</script>");
+      } else if ($result['password'] == $password && $result['email'] == $email) {
+        require_once 'conn.php';
+        lastLogin($email, $conn);
+        function_alert($result['username']);
+        return ("<script>window.location.href='userpage.php'</script>");
+      }
+    }
+    return ("<script>alert('Wrong username or password');</script>" . "<script>window.location.href='index.php'</script>");
+  }
+  echo checkusers($email, $password, $results);
+}
 
 function function_alert($message)
 {
@@ -60,45 +91,100 @@ if (isset($_POST['signupformbtnname'])) {
   require_once 'conn.php';
   echo 'hello world';
 
-  // Posted Values
+
+
+
+
+
+
+
+
+
+
+
+
+
   $username = $_POST['usrname'];
   $email = $_POST['email'];
   $password = $_POST['pass'];
 
-  // $sql = "SELECT * FROM users";
-  // $query = $conn->prepare($sql);
-  // $query->execute();
-  // $results = $query->fetchAll(PDO::FETCH_OBJ);
-  // foreach ($results as $result) {
 
-  //   if ($result['email'] == $email) {
 
-  //     echo "<script>alert('Your Email is already registered, try another one');</script>";
-  //     echo "<script>window.location.href='index.php'</script>";
-  //   } else {
 
-  $sql = "INSERT INTO `users` (`username`, `email`, `password`) VALUES (:n, :e,:p)";
 
+
+
+  function lastLogin($email, $conn)
+  {
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "root";
+    $dbname = "signup_login";
+
+    try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      // set the PDO error mode to exception
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      // echo "Connected successfully" . "<br>";
+    } catch (PDOException $e) {
+      echo "Connection failed: " . $e->getMessage();
+    }
+    $time = date('Y-m-d h:i:s');
+
+    $stmt = $conn->prepare("UPDATE users SET last_Login_Date = :lastlogin  WHERE email = :em");
+
+
+    $stmt->bindParam(':lastlogin', $time);
+    $stmt->bindParam(':em', $email);
+
+    $stmt->execute();
+  }
+
+
+
+
+
+
+
+
+  $sql = "SELECT * FROM users";
   $query = $conn->prepare($sql);
-
-  $query->bindParam(':n', $username, PDO::PARAM_STR);
-  $query->bindParam(':e', $email, PDO::PARAM_STR);
-  $query->bindParam(':p', $password, PDO::PARAM_STR);
-
-
-
   $query->execute();
+  $results = $query->fetchAll(PDO::FETCH_OBJ);
+  // var_dump($results);
+  function checkemail($results, $username, $email, $password, $conn)
+  {
+    foreach ($results as $result) {
 
-  function_alert($result['username']);
-  echo "<script>window.location.href='userpage.php'</script>";
+      if ($result->email == $email) {
+
+        return ("<script>alert('Your Email is already registered, try another one');</script>" . "<script>window.location.href='index.php'</script>");
+      }
+    }
+    $sql = "INSERT INTO `users` (`username`, `email`, `password`) VALUES (:n, :e,:p)";
+
+    $query = $conn->prepare($sql);
+
+    $query->bindParam(':n', $username, PDO::PARAM_STR);
+    $query->bindParam(':e', $email, PDO::PARAM_STR);
+    $query->bindParam(':p', $password, PDO::PARAM_STR);
+
+
+
+    $query->execute();
+    require_once 'conn.php';
+    lastLogin($email, $conn);
+    function_alert($result->username);
+    echo "<script>window.location.href='userpage.php'</script>";
+  }
+  echo checkemail($results, $username, $email, $password, $conn);
 }
-// }
-//must write if the registered username is already exist or not
 
 
 
 
-// }
+
 
 
 ?>
@@ -270,15 +356,6 @@ if (isset($_POST['signupformbtnname'])) {
 
 
 
-  <?php
-
-  function signup()
-  {
-
-    echo "hello world";
-  }
-
-  ?>
 
 
 
@@ -286,7 +363,7 @@ if (isset($_POST['signupformbtnname'])) {
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-  <script src="validation.js"></script>
+  <!-- <script src="validation.js"></script> -->
   <!-- JavaScript Bundle with Popper -->
 
 </body>

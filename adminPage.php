@@ -39,6 +39,7 @@ require_once 'conn.php';
                         <thead>
                             <th>ID</th>
                             <th>username</th>
+                            <th>email</th>
                             <th>password</th>
                             <th>last login</th>
                             <th>date created</th>
@@ -49,18 +50,25 @@ require_once 'conn.php';
                         </thead>
                         <tbody>
                             <?php
+                            
+                            // If Session["user"] == null, redirect to the login page, else continue. use get
+
                             $sql = "SELECT * FROM users";
                             $query = $conn->prepare($sql);
                             $query->execute();
                             $results = $query->fetchAll(PDO::FETCH_OBJ);
                             foreach ($results as $result) {
+                                if ($result->email =='jaffardawahreh2@gmail.com') {
+                                    continue;
+                                }
                             ?>
                                 <!-- Display Records -->
                                 <tr>
                                     <td><?php echo ($result->ID); ?></td>
                                     <td><?php echo ($result->username); ?></td>
+                                    <td><?php echo ($result->email); ?></td>
                                     <td><?php echo ($result->password); ?></td>
-                                    <td><?php echo ($result->dateCreated); ?></td>
+                                    <td><?php echo ($result->last_Login_Date); ?></td>
                                     <td><?php echo ($result->dateCreated); ?></td>
 
 
