@@ -50,7 +50,7 @@ require_once 'conn.php';
                         </thead>
                         <tbody>
                             <?php
-                            
+
                             // If Session["user"] == null, redirect to the login page, else continue. use get
 
                             $sql = "SELECT * FROM users";
@@ -58,7 +58,7 @@ require_once 'conn.php';
                             $query->execute();
                             $results = $query->fetchAll(PDO::FETCH_OBJ);
                             foreach ($results as $result) {
-                                if ($result->email =='jaffardawahreh2@gmail.com') {
+                                if ($result->email == 'jaffardawahreh2@gmail.com') {
                                     continue;
                                 }
                             ?>

@@ -44,7 +44,6 @@ if (isset($_POST['loginform'])) {
 
 
 
-  // update table tblName set mytime = current_date() where stuff==stuf
 
 
   $results = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -95,23 +94,9 @@ if (isset($_POST['signupformbtnname'])) {
 
 
 
-
-
-
-
-
-
-
-
-
   $username = $_POST['usrname'];
   $email = $_POST['email'];
   $password = $_POST['pass'];
-
-
-
-
-
 
 
   function lastLogin($email, $conn)
@@ -230,24 +215,28 @@ if (isset($_POST['signupformbtnname'])) {
 
 
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" name="usrname" id="username" placeholder="username">
+              <input type="text" class="form-control" pattern="[a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]" name="usrname" id="username" placeholder="username">
               <label for="username">Username</label>
             </div>
 
 
+            <!-- An <input> element with type="email" that must be in the following order: characters@characters.domain (characters followed by an @ sign, followed by more characters, and then a "."
+
+After the "." sign, add at least 2 letters from a to z -->
+
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+              <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="email" id="email" placeholder="name@example.com">
               <label for="email">Email address</label>
             </div>
 
-
+            <!-- password Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters -->
             <div class="form-floating">
-              <input type="password" class="form-control" name="pass" id="password" placeholder="Password">
+              <input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" class="form-control" name="pass" id="password" placeholder="Password">
               <label for="password">Password</label>
             </div>
 
             <div class="form-floating mt-3">
-              <input type="password" class="form-control" name="cpass" id="cpassword" placeholder="Confirm Password">
+              <input type="password" class="form-control" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="cpass" id="cpassword" placeholder="Confirm Password">
               <label for="cpassword">Confirm Password</label>
             </div>
 
@@ -363,7 +352,7 @@ if (isset($_POST['signupformbtnname'])) {
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-  <!-- <script src="validation.js"></script> -->
+
   <!-- JavaScript Bundle with Popper -->
 
 </body>
