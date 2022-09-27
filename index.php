@@ -69,18 +69,14 @@ if (isset($_POST['loginform'])) {
         $_SESSION['email'] = $email;
         lastLogin($email);
         function_alert($result->username);
-        // $newID=($result->ID)+1;
-        // echo $newID . $result->ID;
         return ("<script>window.location.href='userpage.php?vid=$result->ID'</script>");
       }
     }
     return ("<script>alert('Wrong username or password');</script>" . "<script>window.location.href='index.php'</script>");
   }
-  // if (isset($_SESSION['email'])) {
 
 
   echo checkusers($email, $password, $results);
-  // }
 }
 
 function function_alert($message)
