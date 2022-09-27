@@ -56,8 +56,7 @@ if (isset($_POST['loginform'])) {
 
     foreach ($results as $result) {
       require_once 'conn.php';
-      // echo ($result['password']);
-      // echo $password;
+      
 
       if ($result->password == $password && $result->email == $email && $result->email == 'jaffardawahreh2@gmail.com') {
         lastLogin($email);

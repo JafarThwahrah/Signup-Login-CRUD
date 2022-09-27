@@ -1,3 +1,5 @@
+// Need to fetch data from php post
+
 let signupForm = document.getElementById("Signupformbtn");
 
 signupForm.addEventListener("click", function (evt) {
