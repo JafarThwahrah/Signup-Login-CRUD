@@ -20,6 +20,7 @@
 <?php
 require_once 'conn.php';
 
+
 $View = $_REQUEST['vid'];
 
 $sql = "SELECT * FROM users WHERE ID = :viewID";
