@@ -1,5 +1,7 @@
 <?php
 require_once 'conn.php';
+session_start();
+
 if (isset($_POST['loginform'])) {
   require_once 'conn.php';
 
@@ -52,31 +54,33 @@ if (isset($_POST['loginform'])) {
   function checkusers($email, $password, $results)
   {
 
-      foreach ($results as $result) {
+    foreach ($results as $result) {
+      require_once 'conn.php';
+      // echo ($result['password']);
+      // echo $password;
+
+      if ($result->password == $password && $result->email == $email && $result->email == 'jaffardawahreh2@gmail.com') {
+        lastLogin($email);
+        $_SESSION['email'] = $email;
+
+        return ("<script>alert('Welcome Jafar Thwahrah');</script>" . "<script>window.location.href='adminPage.php'</script>");
+      } else if ($result->password == $password && $result->email == $email) {
         require_once 'conn.php';
-        // echo ($result['password']);
-        // echo $password;
-
-        if ($result->password == $password && $result->email == $email && $result->email == 'jaffardawahreh2@gmail.com') {
-          lastLogin($email);
-
-          return ("<script>alert('Welcome Jafar Thwahrah');</script>" . "<script>window.location.href='adminPage.php'</script>");
-        } else if ($result->password == $password && $result->email == $email) {
-          require_once 'conn.php';
-          lastLogin($email);
-          function_alert($result->username);
-          // $newID=($result->ID)+1;
-          // echo $newID . $result->ID;
-          return ("<script>window.location.href='userpage.php?vid=$result->ID'</script>");
-        }
+        $_SESSION['email'] = $email;
+        lastLogin($email);
+        function_alert($result->username);
+        // $newID=($result->ID)+1;
+        // echo $newID . $result->ID;
+        return ("<script>window.location.href='userpage.php?vid=$result->ID'</script>");
       }
-      return ("<script>alert('Wrong username or password');</script>" . "<script>window.location.href='index.php'</script>");
     }
-    // if (isset($_SESSION['email'])) {
+    return ("<script>alert('Wrong username or password');</script>" . "<script>window.location.href='index.php'</script>");
+  }
+  // if (isset($_SESSION['email'])) {
 
-  
+
   echo checkusers($email, $password, $results);
-    // }
+  // }
 }
 
 function function_alert($message)
@@ -108,7 +112,6 @@ if (isset($_POST['signupformbtnname'])) {
   $password = $_POST['pass'];
   $photo = "./personalPhotos/" . $_POST['photo'];
 
-  echo $photo;
 
 
   function lastLogin($email, $conn)
@@ -150,36 +153,42 @@ if (isset($_POST['signupformbtnname'])) {
   $query = $conn->prepare($sql);
   $query->execute();
   $results = $query->fetchAll(PDO::FETCH_OBJ);
-  // var_dump($results);
-  function checkemail($results, $username, $email, $password, $conn, $photo)
-  {
-    foreach ($results as $result) {
 
-      if ($result->email == $email) {
+  foreach ($results as $result) {
 
-        return ("<script>alert('Your Email is already registered, try another one');</script>" . "<script>window.location.href='index.php'</script>");
-      }
+    if ($result->email == $email) {
+
+      echo ("<script>alert('Your Email is already registered, try another one');</script>" . "<script>window.location.href='index.php'</script>");
     }
-    $sql = "INSERT INTO `users` (`username`, `email`, `password`, `photo`) VALUES (:n, :e,:p,:ph)";
-
-    $query = $conn->prepare($sql);
-
-    $query->bindParam(':n', $username, PDO::PARAM_STR);
-    $query->bindParam(':e', $email, PDO::PARAM_STR);
-    $query->bindParam(':p', $password, PDO::PARAM_STR);
-    $query->bindParam(':ph', $photo, PDO::PARAM_STR);
-
-
-
-
-    $query->execute();
-    require_once 'conn.php';
-    lastLogin($email, $conn);
-    $newID = ($result->ID) + 1;
-    echo $newID . $result->ID;
-    echo "<script>window.location.href='userpage.php?vid=$newID'</script>";
   }
-  echo checkemail($results, $username, $email, $password, $conn, $photo);
+
+  $sql = "INSERT INTO `users` (`username`, `email`, `password`, `photo`) VALUES (:n, :e,:p,:ph)";
+
+  $query = $conn->prepare($sql);
+
+  $query->bindParam(':n', $username, PDO::PARAM_STR);
+  $query->bindParam(':e', $email, PDO::PARAM_STR);
+  $query->bindParam(':p', $password, PDO::PARAM_STR);
+  $query->bindParam(':ph', $photo, PDO::PARAM_STR);
+
+
+
+
+  $query->execute();
+  require_once 'conn.php';
+  lastLogin($email, $conn);
+  $_SESSION['email'] = $email;
+  $sql = "SELECT `ID` FROM `users` WHERE email = :email";
+  $query = $conn->prepare($sql);
+  $query->bindParam(':email', $email, PDO::PARAM_STR);
+  $query->execute();
+  $results = $query->fetchAll(PDO::FETCH_ASSOC);
+  $newuserid=$results[0]['ID'];
+  // var_dump($results);
+
+
+
+  echo "<script>window.location.href='userpage.php?vid=$newuserid'</script>";
 }
 
 

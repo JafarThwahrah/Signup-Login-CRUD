@@ -1,5 +1,13 @@
 <?php
+session_start();
 
+// echo($_SESSION['email']);
+
+if (!isset($_SESSION['email'])){
+     die("Access denied");
+     header('location:index.php');
+
+}
 
 require_once 'conn.php';
 
@@ -90,7 +98,7 @@ require_once 'conn.php';
                 </div>
             </div>
         </div>
-        <a href="index.php" class="btn btn-danger mt-4">Logout</a>
+        <a href="index.php  " class="btn btn-danger mt-4" onclick="<?php session_unset(); ?>">Logout</a>
 
     </div>
 

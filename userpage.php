@@ -20,6 +20,13 @@
 <?php
 require_once 'conn.php';
 
+session_start();
+
+
+if (!isset($_SESSION['email'])){
+     die("Access denied");
+     header('location:index.php');
+    }
 
 $View = $_REQUEST['vid'];
 
@@ -65,7 +72,7 @@ $query = $conn->prepare($sql);
         } ?>
         </div>
 
-    <a href="index.php" class="btn btn-danger mt-4">Logout</a>
+    <a href="index.php" onclick="<?php session_unset(); ?>" class="btn btn-danger mt-4">Logout</a>
 
 
 
