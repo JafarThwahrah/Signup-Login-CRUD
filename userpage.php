@@ -14,7 +14,55 @@
 <body>
 
 
-    Hi user
+
+
+
+<?php
+require_once 'conn.php';
+
+$View = $_REQUEST['vid'];
+
+$sql = "SELECT * FROM users WHERE ID = :viewID";
+
+$query = $conn->prepare($sql); 
+    $query->bindParam(':viewID', $View, PDO::PARAM_INT);
+    $query->execute();
+    //Assign the data which you pulled from the database (in the preceding step) to a variable.
+    $results = $query->fetchAll(PDO::FETCH_OBJ);
+    // For serial number initialization
+    $cnt = 1;
+    if ($query->rowCount() > 0) {
+    ?>
+        <div class="d-flex justify-content-around mt-5 flex-wrap align-content-around">
+            <?php
+            //In case that the query returned at least one record, we can echo the records within a foreach loop:
+            foreach ($results as $result) {
+                echo $result->photo;
+            ?>
+                <!-- Display card -->
+
+                <div class="card w-25 m-5">
+                    <img src="<?php echo ($result->photo); ?>" class="card-img-top" alt="...">
+                    
+                    <div class="card-body">
+                        <h5 class="card-title"> username:<?php echo ($result->username); ?></< /h5>
+                            <h5 class="card-title">ID: <?php echo ($result->ID); ?></< /h5>
+                                <p class="card-text">email : <?php echo ($result->email); ?></p>
+                                <p class="card-text">Creation time : <?php echo ($result->dateCreated); ?></p>
+
+
+                    </div>
+                 
+
+                </div>
+
+
+        <?php
+                // for serial number increment
+                $cnt++;
+            }
+        } ?>
+        </div>
 
     <a href="index.php" class="btn btn-danger mt-4">Logout</a>
 

@@ -48,25 +48,27 @@ if (isset($_POST['loginform'])) {
 
 
 
-  $results = $query->fetchAll(PDO::FETCH_ASSOC);
+  $results = $query->fetchAll(PDO::FETCH_OBJ);
   function checkusers($email, $password, $results)
   {
     foreach ($results as $result) {
       require_once 'conn.php';
       // echo ($result['password']);
       // echo $password;
-      if ($result['password'] == $password && $result['email'] == $email && $result['email'] == 'jaffardawahreh2@gmail.com') {
+      if ($result->password == $password && $result->email == $email && $result->email == 'jaffardawahreh2@gmail.com') {
         lastLogin($email);
 
         return ("<script>alert('Welcome Jafar Thwahrah');</script>" . "<script>window.location.href='adminPage.php'</script>");
-      } else if ($result['password'] == $password && $result['email'] == $email) {
+      } else if ($result->password == $password && $result->email == $email) {
         require_once 'conn.php';
         lastLogin($email);
-        function_alert($result['username']);
-        return ("<script>window.location.href='userpage.php'</script>");
+        function_alert($result->username);
+        // $newID=($result->ID)+1;
+        // echo $newID . $result->ID;
+        return ("<script>window.location.href='userpage.php?vid=$result->ID'</script>");
       }
     }
-    return ("<script>alert('Wrong username or password');</script>" . "<script>window.location.href='index.php'</script>");
+    // return ("<script>alert('Wrong username or password');</script>" . "<script>window.location.href='index.php'</script>");
   }
   echo checkusers($email, $password, $results);
 }
@@ -90,7 +92,6 @@ function function_alert($message)
 <?php
 if (isset($_POST['signupformbtnname'])) {
   require_once 'conn.php';
-  echo 'hello world';
 
 
 
@@ -99,6 +100,9 @@ if (isset($_POST['signupformbtnname'])) {
   $username = $_POST['usrname'];
   $email = $_POST['email'];
   $password = $_POST['pass'];
+  $photo ="./personalPhotos/".$_POST['photo'];
+
+  echo $photo;
 
 
   function lastLogin($email, $conn)
@@ -141,7 +145,7 @@ if (isset($_POST['signupformbtnname'])) {
   $query->execute();
   $results = $query->fetchAll(PDO::FETCH_OBJ);
   // var_dump($results);
-  function checkemail($results, $username, $email, $password, $conn)
+  function checkemail($results, $username, $email, $password, $conn, $photo)
   {
     foreach ($results as $result) {
 
@@ -150,23 +154,26 @@ if (isset($_POST['signupformbtnname'])) {
         return ("<script>alert('Your Email is already registered, try another one');</script>" . "<script>window.location.href='index.php'</script>");
       }
     }
-    $sql = "INSERT INTO `users` (`username`, `email`, `password`) VALUES (:n, :e,:p)";
+    $sql = "INSERT INTO `users` (`username`, `email`, `password`, `photo`) VALUES (:n, :e,:p,:ph)";
 
     $query = $conn->prepare($sql);
 
     $query->bindParam(':n', $username, PDO::PARAM_STR);
     $query->bindParam(':e', $email, PDO::PARAM_STR);
     $query->bindParam(':p', $password, PDO::PARAM_STR);
+    $query->bindParam(':ph', $photo, PDO::PARAM_STR);
+
 
 
 
     $query->execute();
     require_once 'conn.php';
     lastLogin($email, $conn);
-    function_alert($result->username);
-    echo "<script>window.location.href='userpage.php'</script>";
+    $newID=($result->ID)+1;
+    echo $newID . $result->ID;
+    echo "<script>window.location.href='userpage.php?vid=$newID'</script>";
   }
-  echo checkemail($results, $username, $email, $password, $conn);
+  echo checkemail($results, $username, $email, $password, $conn,$photo);
 }
 
 
@@ -243,7 +250,10 @@ After the "." sign, add at least 2 letters from a to z -->
               <label for="cpassword">Confirm Password</label>
             </div>
 
-
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Personal Photo</label>
+              <input class="form-control" name="photo" type="file" id="formFile">
+            </div>
 
 
           </div>
