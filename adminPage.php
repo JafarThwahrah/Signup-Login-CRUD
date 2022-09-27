@@ -3,10 +3,9 @@ session_start();
 
 // echo($_SESSION['email']);
 
-if (!isset($_SESSION['email'])){
-     die("Access denied");
-     header('location:index.php');
-
+if (!isset($_SESSION['email'])) {
+    die("Access denied");
+    header('location:index.php');
 }
 
 require_once 'conn.php';

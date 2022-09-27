@@ -56,7 +56,7 @@ if (isset($_POST['loginform'])) {
 
     foreach ($results as $result) {
       require_once 'conn.php';
-      
+
 
       if ($result->password == $password && $result->email == $email && $result->email == 'jaffardawahreh2@gmail.com') {
         lastLogin($email);
@@ -178,7 +178,7 @@ if (isset($_POST['signupformbtnname'])) {
   $query->bindParam(':email', $email, PDO::PARAM_STR);
   $query->execute();
   $results = $query->fetchAll(PDO::FETCH_ASSOC);
-  $newuserid=$results[0]['ID'];
+  $newuserid = $results[0]['ID'];
   // var_dump($results);
 
 

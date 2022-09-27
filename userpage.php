@@ -17,22 +17,22 @@
 
 
 
-<?php
-require_once 'conn.php';
+    <?php
+    require_once 'conn.php';
 
-session_start();
+    session_start();
 
 
-if (!isset($_SESSION['email'])){
-     die("Access denied");
-     header('location:index.php');
+    if (!isset($_SESSION['email'])) {
+        die("Access denied");
+        header('location:index.php');
     }
 
-$View = $_REQUEST['vid'];
+    $View = $_REQUEST['vid'];
 
-$sql = "SELECT * FROM users WHERE ID = :viewID";
+    $sql = "SELECT * FROM users WHERE ID = :viewID";
 
-$query = $conn->prepare($sql); 
+    $query = $conn->prepare($sql);
     $query->bindParam(':viewID', $View, PDO::PARAM_INT);
     $query->execute();
     //Assign the data which you pulled from the database (in the preceding step) to a variable.
@@ -51,7 +51,7 @@ $query = $conn->prepare($sql);
 
                 <div class="card w-25 m-5">
                     <img src="<?php echo ($result->photo); ?>" class="card-img-top" alt="...">
-                    
+
                     <div class="card-body">
                         <h5 class="card-title"> username:<?php echo ($result->username); ?></< /h5>
                             <h5 class="card-title">ID: <?php echo ($result->ID); ?></< /h5>
@@ -60,7 +60,7 @@ $query = $conn->prepare($sql);
 
 
                     </div>
-                 
+
 
                 </div>
 
@@ -72,7 +72,7 @@ $query = $conn->prepare($sql);
         } ?>
         </div>
 
-    <a href="index.php" onclick="<?php session_unset(); ?>" class="btn btn-danger mt-4">Logout</a>
+        <a href="index.php" onclick="<?php session_unset(); ?>" class="btn btn-danger mt-4">Logout</a>
 
 
 
