@@ -17,9 +17,9 @@ signupForm.addEventListener("click", function (evt) {
 
 function checkPassword(username, email, password, cpassword) {
   const Name = new RegExp(/[a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]/);
-  const Email = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
-  const Password = new RegExp(/([a-zA-Z]+[0-9]+)/);
-  const CPassword = new RegExp(/([a-zA-Z]+[0-9]+)/);
+  const Email = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})/);
+  const Password = new RegExp(/([a-zA-Z]+[0-9])/);
+  const CPassword = new RegExp(/([a-zA-Z]+[0-9])/);
 
   console.log(Name.test(username));
   console.log(Name.test(email));
@@ -33,8 +33,7 @@ function checkPassword(username, email, password, cpassword) {
     CPassword.test(cpassword)
   ) {
     if (password == cpassword) {
-      alert(`JS FILE WELCOME ${username}`);
-      //   window.location.href='index.php'
+        window.location.href='register.php'
     } else {
       alert("Please confirm your password again");
     }

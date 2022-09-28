@@ -101,7 +101,7 @@ require_once 'conn.php';
                 </div>
             </div>
         </div>
-        <a href="index.php  " class="btn btn-danger mt-4" onclick="<?php session_unset(); ?>">Logout</a>
+        <a href="index.php  " class="btn btn-danger mt-4" onclick="<?php session_destroy(); ?>">Logout</a>
 
     </div>
 

@@ -92,7 +92,7 @@ if (isset($_POST['signupformbtnname'])) {
 
 
 
-    echo "<script>window.location.href='userpage.php?vid=$newuserid'</script>";
+    // echo "<script>window.location.href='userpage.php?vid=$newuserid'</script>";
 }
 
 
