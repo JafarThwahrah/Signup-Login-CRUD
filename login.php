@@ -1,7 +1,8 @@
-<?php
+<?php 
+
+session_start();
 
 require_once 'conn.php';
-session_start();
 
 if (isset($_POST['loginform'])) {
   require_once 'conn.php';
@@ -63,9 +64,10 @@ if (isset($_POST['loginform'])) {
         lastLogin($email);
         $_SESSION['email'] = $email;
 
-        return ("<script>alert('Welcome Jafar Thwahrah');</script>" . "<script>window.location.href='adminPage.php'</script>");
+        return ("<script>alert('Welcome Jafar Thwahrah');</script>" . "<script>window.location.href='adminPage.php?admID=2'</script>");
       } else if ($result->password == $password && $result->email == $email) {
         require_once 'conn.php';
+        session_reset();
         $_SESSION['email'] = $email;
         lastLogin($email);
         function_alert($result->username);
@@ -84,10 +86,3 @@ function function_alert($message)
 
   echo "<script>alert('Weclome $message');</script>";
 }
-
-
-
-
-
-
-?>

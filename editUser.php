@@ -85,7 +85,7 @@ if (isset($_POST['update'])) {
 
 
     echo "<script>alert('Record Updated successfully');</script>";
-    echo "<script>window.location.href='adminPage.php'</script>";
+    echo "<script>window.location.href='adminPage.php?admID=2'</script>";
 }
 
 

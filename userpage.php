@@ -21,15 +21,14 @@
     require_once 'conn.php';
 
     session_start();
-
-
-    if (!isset($_SESSION['email'])) {
-        die("Access denied");
-        header('location:index.php');
-    }
-
     $View = $_REQUEST['vid'];
 
+    if (!$View){
+        die("Access denied");
+    header('location:index.php');
+    }
+
+   
     $sql = "SELECT * FROM users WHERE ID = :viewID";
 
     $query = $conn->prepare($sql);
