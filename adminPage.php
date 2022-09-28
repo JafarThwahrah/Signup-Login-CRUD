@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include './RemoveUser.php';
+
 // echo($_SESSION['email']);
 
 if (!isset($_SESSION['email'])) {
@@ -81,7 +83,7 @@ require_once 'conn.php';
 
 
                                     <td> <a href="editUser.php?id=<?php echo ($result->ID); ?>"><button class="btn btn-info btn-s"><span class="glyphicon glyphicon-pencil"></span></button></a></td>
-                                    <td><a href="RemoveUser.php?del=<?php echo ($result->ID); ?>"><button class="btn btn-danger btn-s" onClick="return confirm('Do you really want to delete');"><span class="glyphicon glyphicon-trash"></span></button></a></td>
+                                    <td><a href="adminPage.php?del=<?php echo ($result->ID); ?>"><button class="btn btn-danger btn-s" onClick="return confirm('Do you really want to delete');"><span class="glyphicon glyphicon-trash"></span></button></a></td>
                                 </tr>
 
 
