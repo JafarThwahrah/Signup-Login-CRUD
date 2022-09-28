@@ -65,8 +65,8 @@ After the "." sign, add at least 2 letters from a to z -->
             </div>
 
             <div class="mt-2">
-              <label for="formFile" class="form-label">Personal Photo</label>
-              <input class="form-control" name="photo" type="file" id="formFile">
+              <label for="photo" class="form-label">Personal Photo</label>
+              <input class="form-control" name="photo" type="file" id="photo">
             </div>
 
 
@@ -181,7 +181,7 @@ After the "." sign, add at least 2 letters from a to z -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
 
   <!-- JavaScript Bundle with Popper -->
-  <!-- <script src="validation.js"></script> -->
+  <script src="validation.js"></script>
 
 </body>
 

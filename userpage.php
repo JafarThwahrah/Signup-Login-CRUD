@@ -34,9 +34,7 @@
     $query = $conn->prepare($sql);
     $query->bindParam(':viewID', $View, PDO::PARAM_INT);
     $query->execute();
-    //Assign the data which you pulled from the database (in the preceding step) to a variable.
     $results = $query->fetchAll(PDO::FETCH_OBJ);
-    // For serial number initialization
     $cnt = 1;
     if ($query->rowCount() > 0) {
     ?>

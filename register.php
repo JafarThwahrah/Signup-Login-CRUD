@@ -2,7 +2,6 @@
 <?php
 require_once 'conn.php';
 
-if (isset($_POST['signupformbtnname'])) {
 
 
 
@@ -11,9 +10,7 @@ if (isset($_POST['signupformbtnname'])) {
     $username = $_POST['usrname'];
     $email = $_POST['email'];
     $password = $_POST['pass'];
-    $cpassword = $_POST['cpass'];
     $photo = "./personalPhotos/" . $_POST['photo'];
-    $json_arr = array($username, $email, $password, $cpassword);
 
 
     function lastLogin($email, $conn)
@@ -92,8 +89,8 @@ if (isset($_POST['signupformbtnname'])) {
 
 
 
-    // echo "<script>window.location.href='userpage.php?vid=$newuserid'</script>";
-}
+    echo "<script>window.location.href='userpage.php?vid=$newuserid'</script>";
+
 
 
 
